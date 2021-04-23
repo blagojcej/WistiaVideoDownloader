@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Wistia Video Downloader</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h4 class="mt-5">Right click on the video, 'Copy Link..' or something like that, and paste copied link in below
+            input field
+        </h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default" id="txtLink">
+                    <div class="input-group-append ml-2">
+                        <button type="button" class="btn btn-primary" id="btnGetLink">Get Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm-6">
+                <a id="videoUrl" href="" target="_blank"></a>
+                <br>
+                <hint id="videoUrlHint" hidden="true" style="font-size: 12px;">Open link, right click on video and 'Save as...'</hint>
+            </div>
+        </div>
+    </div>
+
+    <script src="downloader.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnGetLink").click(async function () {
+                let link = $('#txtLink').val();
+                let videoURL = await generateDownloadLink(link)
+                // alert(videoURL);
+                let videoUrlAnchor = document.getElementById("videoUrl");
+                videoUrlAnchor.href = videoURL;
+                videoUrlAnchor.innerHTML = videoURL;
+                let videUrlHint = document.getElementById("videoUrlHint");
+                videUrlHint.hidden = false;
+            });
+        });
+    </script>
+</body>
+
+</html>
